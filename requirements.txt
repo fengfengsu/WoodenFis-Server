@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+pytest
+pytest-asyncio
+httpx
+pytest-mock
+pytest-html
+pytest-cov
+faker
+alibabacloud-dysmsapi20170525==2.0.24
+alibabacloud-tea-openapi==0.3.7
