@@ -13,11 +13,11 @@ class SMSService:
     """阿里云短信服务封装类"""
     
     def __init__(self):
-        # 从环境变量获取配置，如未设置则使用默认值
-        self.access_key_id = os.getenv('ALIBABA_CLOUD_ACCESS_KEY_ID', 'LTAI5t7JTDD1HXPyK8E7WbRN')
-        self.access_key_secret = os.getenv('ALIBABA_CLOUD_ACCESS_KEY_SECRET', 'ASkZsiBk4ikXrSbxaSH4CdsJ8LNrFs')
+        # 从环境变量获取配置
+        self.access_key_id = os.getenv('ALIBABA_CLOUD_ACCESS_KEY_ID', '')
+        self.access_key_secret = os.getenv('ALIBABA_CLOUD_ACCESS_KEY_SECRET', '')
         self.sign_name = os.getenv('SMS_SIGN_NAME', '木鱼APP')  # 短信签名
-        self.template_code = os.getenv('SMS_TEMPLATE_CODE', 'SMS_123456789')  # 短信模板代码
+        self.template_code = os.getenv('SMS_TEMPLATE_CODE', '')  # 短信模板代码
         self.endpoint = 'dysmsapi.aliyuncs.com'
         
         # 检查密钥是否有效（非空字符串）
