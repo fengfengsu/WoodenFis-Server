@@ -41,6 +41,8 @@ class WeChatServerVerification:
             hash_obj = hashlib.sha1(tmp_str.encode('utf-8'))
             hash_str = hash_obj.hexdigest()
             
+            logger.info(f"生成的签名: {hash_str}，对比签名: {signature}")
+
             # 开发者获得加密后的字符串可与signature对比，标识该请求来源于微信
             return hash_str == signature
             
