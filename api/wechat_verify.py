@@ -118,7 +118,7 @@ async def wechat_webhook(request: Request):
     """
     try:
         # 获取验证参数
-        signature = request.query_params.get('signature', '')
+        signature = request.query_params.get('msg_signature', '')
         timestamp = request.query_params.get('timestamp', '')
         nonce = request.query_params.get('nonce', '')
         
@@ -177,7 +177,7 @@ async def test_signature_generation(test_data: dict):
         "timestamp": timestamp,
         "nonce": nonce,
         "token": WECHAT_TOKEN,
-        "signature": signature,
+        "msg_signature": signature,
         "verification_url": f"/wechat/verify?signature={signature}&timestamp={timestamp}&nonce={nonce}&echostr=test"
     }
 
