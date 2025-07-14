@@ -78,12 +78,12 @@ async def wechat_server_verify(request: Request):
     """
     try:
         # 获取微信服务器发送的参数
-        signature = request.query_params.get('signature', '')
+        signature = request.query_params.get('msg_signature', '')
         timestamp = request.query_params.get('timestamp', '')
         nonce = request.query_params.get('nonce', '')
         echostr = request.query_params.get('echostr', '')
         
-        logger.info(f"收到微信验证请求 - signature: {signature}, timestamp: {timestamp}, nonce: {nonce}")
+        logger.info(f"收到微信验证请求 - msg_signature: {signature}, timestamp: {timestamp}, nonce: {nonce}")
         
         # 验证参数是否完整
         if not all([signature, timestamp, nonce, echostr]):
