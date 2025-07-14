@@ -15,6 +15,9 @@ WECHAT_TOKEN = os.getenv("WECHAT_TOKEN", "gvtIVpdAtCQUub")
 
 class WeChatServerVerification:
     """微信服务器验证类"""
+
+    logging.basicConfig(level=logging.INFO)
+    logger = logging.getLogger(__name__)
     
     def __init__(self, token: str):
         self.token = token
