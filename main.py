@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import Base, engine
-from api import user, stat, meditation, achievement, leaderboard, share
+from api import user, stat, meditation, achievement, leaderboard, share, wechat_verify
 
 # 初始化数据库表
 Base.metadata.create_all(bind=engine)
@@ -24,6 +24,7 @@ app.include_router(meditation.router)
 app.include_router(achievement.router)
 app.include_router(leaderboard.router)
 app.include_router(share.router)
+app.include_router(wechat_verify.router)
 
 @app.get("/")
 async def root():
@@ -36,4 +37,4 @@ async def root():
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000) 
+    uvicorn.run(app, host="0.0.0.0", port=8000)
