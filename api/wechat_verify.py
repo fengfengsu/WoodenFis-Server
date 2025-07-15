@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/wechat", tags=["wechat"])
 
 # 微信服务器验证配置
-WECHAT_TOKEN = os.getenv("WECHAT_TOKEN", "gvtIVpdAtCQUub")
+WECHAT_TOKEN = os.getenv("WECHAT_TOKEN", "2ND2zIqHaTQqaymLG")
 
 class WeChatServerVerification:
     """微信服务器验证类"""
@@ -43,6 +43,7 @@ class WeChatServerVerification:
             tmp_str = ''.join(tmp_list)
             hash_obj = hashlib.sha1(tmp_str.encode('utf-8'))
             hash_str = hash_obj.hexdigest()
+            logger.info(f"生成签名的token是: {self.token}")
             
             logger.info(f"生成的签名: {hash_str}，对比签名: {signature}")
 
@@ -83,12 +84,13 @@ async def wechat_server_verify(request: Request):
     """
     try:
         # 获取微信服务器发送的参数
-        signature = request.query_params.get('msg_signature', '')
+        signature = request.query_params.get('signature', '')
         timestamp = request.query_params.get('timestamp', '')
         nonce = request.query_params.get('nonce', '')
         echostr = request.query_params.get('echostr', '')
         
-        logger.info(f"收到微信验证请求 - msg_signature: {signature}, timestamp: {timestamp}, nonce: {nonce}")
+        logger.info(f"配置的token: {WECHAT_TOKEN}")
+        logger.info(f"收到微信验证请求 - signature: {signature}, timestamp: {timestamp}, nonce: {nonce}")
         
         # 验证参数是否完整
         if not all([signature, timestamp, nonce, echostr]):
@@ -118,7 +120,7 @@ async def wechat_webhook(request: Request):
     """
     try:
         # 获取验证参数
-        signature = request.query_params.get('msg_signature', '')
+        signature = request.query_params.get('signature', '')
         timestamp = request.query_params.get('timestamp', '')
         nonce = request.query_params.get('nonce', '')
         
@@ -177,7 +179,7 @@ async def test_signature_generation(test_data: dict):
         "timestamp": timestamp,
         "nonce": nonce,
         "token": WECHAT_TOKEN,
-        "msg_signature": signature,
+        "signature": signature,
         "verification_url": f"/wechat/verify?signature={signature}&timestamp={timestamp}&nonce={nonce}&echostr=test"
     }
 
